@@ -1,5 +1,5 @@
-var screenElement = document.querySelector('#screen');
-var buttonElements = document.querySelectorAll('.boutton');
+const screenElement = document.querySelector('#screen');
+const buttonElements = document.querySelectorAll('.boutton');
 if (!screenElement) {
     throw new Error('Élément #screen introuvable dans le DOM.');
 }
@@ -14,40 +14,40 @@ function getScreenContent() {
     return (screenElement === null || screenElement === void 0 ? void 0 : screenElement.value) || '';
 }
 // Ajout des événements pour les boutons
-buttonElements.forEach(function (button) {
-    button.addEventListener('click', function (e) {
-        var buttonContent = e.target.innerText;
-        var input = buttonContent;
+buttonElements.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        const buttonContent = e.target.innerText;
+        let input = buttonContent;
         if (input === 'x') {
             input = '*';
         }
-        var currentContent = getScreenContent();
+        const currentContent = getScreenContent();
         updateScreen(currentContent + input);
     });
 });
 // Fonctions mathématiques
 function sin() {
-    var content = Number(getScreenContent());
+    const content = Number(getScreenContent());
     updateScreen(Math.sin(content).toString());
 }
 function cos() {
-    var content = Number(getScreenContent());
+    const content = Number(getScreenContent());
     updateScreen(Math.cos(content).toString());
 }
 function tan() {
-    var content = Number(getScreenContent());
+    const content = Number(getScreenContent());
     updateScreen(Math.tan(content).toString());
 }
 function pow() {
-    var content = getScreenContent().split('^');
+    const content = getScreenContent().split('^');
     if (content.length === 2) {
-        var base = Number(content[0].trim());
-        var exponent = Number(content[1].trim());
+        const base = Number(content[0].trim());
+        const exponent = Number(content[1].trim());
         if (isNaN(base) || isNaN(exponent)) {
             updateScreen(" Valeur invalide");
         }
         else {
-            var result = Math.pow(base, exponent);
+            const result = Math.pow(base, exponent);
             updateScreen(result.toString());
         }
     }
@@ -56,7 +56,7 @@ function pow() {
     }
 }
 function sqrt() {
-    var content = Number(getScreenContent());
+    const content = Number(getScreenContent());
     updateScreen(Math.sqrt(content).toString());
     if (isNaN(content) || content < 0) {
         updateScreen('Maths Error');
@@ -64,36 +64,36 @@ function sqrt() {
     }
 }
 function log() {
-    var content = Number(getScreenContent());
+    const content = Number(getScreenContent());
     updateScreen(Math.log(content).toString());
 }
 function e() {
     updateScreen('2.71828182846');
 }
 function fact() {
-    var content = Number(getScreenContent());
+    const content = Number(getScreenContent());
     if (isNaN(content) || content < 0) {
         updateScreen('Maths Error');
         return;
     }
-    var factorial = 1;
-    for (var i = 1; i <= content; i++) {
+    let factorial = 1;
+    for (let i = 1; i <= content; i++) {
         factorial *= i;
     }
     updateScreen(factorial.toString());
 }
 function backspc() {
-    var content = getScreenContent();
+    const content = getScreenContent();
     updateScreen(content.slice(0, -1));
 }
 // Fonction pour calculer le pourcentage
 function calculatePercentage() {
-    var content = Number(getScreenContent());
+    const content = Number(getScreenContent());
     updateScreen((content / 100).toString());
 }
 // Fonctions de conversion
 function convertToBinary() {
-    var content = parseInt(getScreenContent() || '0', 10);
+    const content = parseInt(getScreenContent() || '0', 10);
     updateScreen(content.toString(2));
     if (isNaN(content) || content < 0) {
         updateScreen('Maths Error');
@@ -101,7 +101,7 @@ function convertToBinary() {
     }
 }
 function convertToHexadecimal() {
-    var content = parseInt(getScreenContent() || '0', 10);
+    const content = parseInt(getScreenContent() || '0', 10);
     updateScreen(content.toString(16).toUpperCase());
     if (isNaN(content) || content < 0) {
         updateScreen('Maths Error');
@@ -109,7 +109,7 @@ function convertToHexadecimal() {
     }
 }
 function convertToDecimal() {
-    var content = getScreenContent() || '0';
+    const content = getScreenContent() || '0';
     if (/^[01]+$/.test(content)) {
         updateScreen(parseInt(content, 2).toString());
     }
@@ -122,33 +122,31 @@ function convertToDecimal() {
 }
 // Fonction pour afficher l'heure et mettre à jour le timer
 function afficherHeure() {
-    var timerElement = document.getElementById('timer');
+    const timerElement = document.getElementById('timer');
     if (!timerElement) {
         throw new Error('Élément #timer introuvable dans le DOM.');
     }
     // Fonction pour mettre à jour le timer
     function updateTimer() {
-        var now = new Date();
-        var hours = now.getHours().toString().padStart(2, '0');
-        var minutes = now.getMinutes().toString().padStart(2, '0');
-        var seconds = now.getSeconds().toString().padStart(2, '0');
-        timerElement.textContent = "".concat(hours, "h ").concat(minutes, "m ").concat(seconds, "s");
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        timerElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
         setTimeout(updateTimer, 1000);
     }
     updateTimer();
 }
 // Fonction pour basculer entre le mode scientifique et normal
 function toggleScientificMode() {
-    // Sélectionner les éléments avec les classes .mode_normal et .mode_scientifique
-    var normalMode = document.querySelector('.mode_normal');
-    var scientificMode = document.querySelector('.mode_scientifique');
-    // Vérifier si l'élément scientificMode est masqué
+    const normalMode = document.querySelector('.mode_normal');
+    const scientificMode = document.querySelector('.mode_scientifique');
     if (scientificMode.style.display === 'none') {
-        scientificMode.style.display = 'block'; // Afficher le mode scientifique
-        normalMode.style.display = 'none'; // Masquer le mode normal
+        scientificMode.style.display = 'block';
+        normalMode.style.display = 'none';
     }
     else {
-        scientificMode.style.display = 'none'; // Masquer le mode scientifique
-        normalMode.style.display = 'block'; // Afficher le mode normal
+        scientificMode.style.display = 'none';
+        normalMode.style.display = 'block';
     }
 }
